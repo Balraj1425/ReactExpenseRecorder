@@ -1,4 +1,4 @@
-import Expenses from "./components/Expenses";
+import Expenses from "./components/Expenses/Expenses";
 
 function App() {
   const expenses = [
@@ -31,7 +31,6 @@ function App() {
   // we can set the data inside the components in form of properties and this data can be fetched inside the Component with help of props to reuse the component
   return (
     <div>
-      <h2>Let's get started!</h2>
       <Expenses expenses = {expenses}></Expenses>
     </div>
   );
