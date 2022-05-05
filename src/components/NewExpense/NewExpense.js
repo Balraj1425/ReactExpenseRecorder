@@ -3,7 +3,7 @@ import ExpenseForm from './ExpenseForm';
 import './NewExpense.css';
 
 const NewExpense = (props) => {
-    const [hideForm, setHideForm] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
 
     //this custom event handler is used to get the data from child component to parent component.
     const saveExpenseDataHandler = (enteredExpenseData) => {
@@ -12,27 +12,23 @@ const NewExpense = (props) => {
             id: Math.random().toString()
         };
         props.onAddExpense(expenseData);
+        setIsEditing(false);
     };
 
-    const formHideHandler = (formHidden) =>{
-        setHideForm(formHidden);
+    const stopEditingHandler = () =>{
+        setIsEditing(false);
     }
 
-    const addClickHandler = () => { 
-        setHideForm(false);
+    const startEditingHandler = () => { 
+        setIsEditing(true);
     };
 
-    if (hideForm) {
-        return <div className="new-expense"><button onClick={addClickHandler}>Add New Expense</button></div>
-    }
-
-    if (!hideForm) {
-        return(
-            <div className="new-expense">
-                <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} onHideForm={formHideHandler}></ExpenseForm>
-            </div>
-        )
-    }
+    return(
+        <div className="new-expense">
+            {!isEditing && <button onClick={startEditingHandler}>Add New Expense</button>}
+            {isEditing && <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} onCancel={stopEditingHandler}></ExpenseForm>}
+        </div>
+    )
 }
 
 export default NewExpense
