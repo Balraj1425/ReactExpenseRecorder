@@ -62,12 +62,17 @@ const ExpenseForm = (props) => {
         }
         // this is for passing data from child to parent component, the expenseData passed from here will now be available in the parent component that is NewExpense
         props.onSaveExpenseData(expenseData);
+        props.onHideForm(true);
 
         //two way data binding achieved by adding value attribute and now we can reset thevalues to initial state
         setEnteredTitle('');
         setEnteredAmount('');
         setEnteredDate('');
     };
+
+    const cancelHandler = () => {
+        props.onHideForm(true);
+    }
 
     return (
         <form onSubmit={submitHandler}>
@@ -86,6 +91,7 @@ const ExpenseForm = (props) => {
                 </div>
             </div>
             <div className='new-expense__actions'>
+                <button onClick={cancelHandler}>Cancel</button>
                 <button type='submit'>Add Expense</button>
             </div>
         </form>
